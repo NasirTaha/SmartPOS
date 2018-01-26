@@ -1,0 +1,222 @@
+﻿@using SmartAdmin.Seed.Configuration
+@using SmartAdmin.Seed.Extensions
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IOptions<SmartSettings> Settings
+@* The IViewLocalizer can be injected into the view. It does two things of interest:
+    1. It can HTML encode *parameters* passed to resource strings (not the resource strings themselves, as they may contain
+       HTML) automatically, and return the result as an IHtmlContent so Razor won't HTML encode it again;
+    2. It looks for localization resources for this view based on the view path, e.g. if the view's path is
+       "MyApplication/Views/Home/Index.cshtml", then the corresponding resource base path will be "MyApplication.Views.Home.Index" *@
+@inject IViewLocalizer Localizer
+    
+@section Scripts {
+    <script>
+        $(function () {
+        });
+    </script>
+}
+<style>
+    .my_dashboard_btn {
+        border: solid 1px #CCC;
+        background: #FFF;
+        color: #666;
+        padding: 20px;
+        width: 100%;
+        font-size: 20px;
+
+    }
+    .my_btn_shell {
+        padding-left: 8px;
+        padding-right: 8px;
+      
+    }
+    .stat_box {
+        border: solid 1px #CCC;
+        background-color: #FFF;
+        padding: 10px;
+        font-size: 16px;
+        color: #666;
+    }
+    .stat_icon {
+        padding: 15px;
+        border-radius: 25px;
+        color: #FFF;
+        margin-right: 10px;
+        float: left;
+
+    }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.3.2/react-dom.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/remarkable/1.7.1/remarkable.min.js"></script>
+@*<script src="@Url.Content("~/Appjs/testReac.jsx")" type="module"></script>*@
+<script src="~/Appjs/testReac.jsx"></script>
+<div class="row" style="margin-bottom:20px;">
+    
+    <div class="col-md-9">
+        <div class="col-md-3 my_btn_shell" style="margin-bottom:10px;">
+            <a asp-controller="Home" asp-action="NewSaleInvoice" class="btn btn-primary my_dashboard_btn">
+                <span class="glyphicon glyphicon-shopping-cart btn-icon"></span><br>
+               @Localizer["Newsale"] 
+            </a>
+        </div>
+        <div class="col-md-3 my_btn_shell" style="margin-bottom:10px;">
+            <a asp-controller="" asp-action="" class="btn btn-primary my_dashboard_btn">
+                <span class="glyphicon glyphicon-stats btn-icon"></span><br>
+                @Localizer["Sales"]
+            </a>
+        </div>
+        <div class="col-md-3 my_btn_shell" style="margin-bottom:10px;">
+            <a asp-controller="" asp-action="" class="btn btn-primary my_dashboard_btn">
+                <span class="glyphicon glyphicon-retweet btn-icon"></span><br>
+                @Localizer["Purchases"]  
+            </a>
+        </div>
+        <div id="helloworldcontainer">
+
+        </div>
+        <div class="col-md-3 my_btn_shell" style="margin-bottom:10px;">
+            <a asp-controller="" asp-action="" class="btn btn-primary my_dashboard_btn">
+                <span class="glyphicon glyphicon-th btn-icon"></span><br>
+               @Localizer["Stock"]   
+            </a>
+        </div>
+        <div class="col-md-3 my_btn_shell" style="margin-bottom:10px;">
+            <a asp-controller="Items" asp-action="Index" class="btn btn-primary my_dashboard_btn">
+                <span class="glyphicon glyphicon-equalizer btn-icon"></span><br>
+                @Localizer["Items"]   
+            </a>
+        </div>
+        <div class="col-md-3 my_btn_shell" style="margin-bottom:10px;">
+            <a asp-controller="" asp-action="" class="btn btn-primary my_dashboard_btn">
+                <span class="glyphicon glyphicon-user btn-icon"></span><br>
+              @Localizer["Customers"]   
+            </a>
+        </div>
+        <div class="col-md-3 my_btn_shell" style="margin-bottom:10px;">
+            <a asp-controller="" asp-action="" class="btn btn-primary my_dashboard_btn">
+                <span class="glyphicon glyphicon-share-alt btn-icon"></span><br>
+               @Localizer["Suppliers"]  
+            </a>
+        </div>
+        <div class="col-md-3 my_btn_shell" style="margin-bottom:10px;">
+            <a asp-controller="" asp-action="" class="btn btn-primary my_dashboard_btn">
+                <span class="glyphicon glyphicon-save btn-icon"></span><br>
+                @Localizer["Receiving"]  
+            </a>
+        </div>
+        <div class="col-md-3 my_btn_shell" style="margin-bottom:10px;">
+            <a asp-controller="" asp-action="" class="btn btn-primary my_dashboard_btn">
+                <span class="glyphicon glyphicon-signal btn-icon"></span><br>
+                @Localizer["Salesreports"]    
+            </a>
+        </div>
+        <div class="col-md-3 my_btn_shell" style="margin-bottom:10px;">
+            <a asp-controller="Home" asp-action="Settings" class="btn btn-primary my_dashboard_btn">
+                <span class="glyphicon glyphicon-cog btn-icon"></span><br>
+                @Localizer["Settings"]  
+            </a>
+        </div>
+        <div class="col-md-3 my_btn_shell" style="margin-bottom:10px;">
+            <a asp-controller="" asp-action="" class="btn btn-primary my_dashboard_btn">
+                <span class="glyphicon glyphicon-tasks btn-icon"></span><br>
+                @Localizer["employees"]    
+            </a>
+        </div>
+    </div>
+
+    
+    <div class="col-md-3">
+        <div class="row">
+            <!--
+            <div class="col-md-12" style="margin-bottom:3px;">
+              <div class="stat_box"><span class="glyphicon glyphicon-save stat_icon" style="background: #333333;"></span><span>
+                <div>Total Receivable</div>
+                <div><strong>$0.00</strong></div>
+                </span></div>
+            </div>
+            -->
+            <div class="col-md-12" style="margin-bottom:3px;">
+                <div class="stat_box">
+                    <span class="glyphicon glyphicon-stats stat_icon" style="background: #3A589E;"></span><span>
+                        <div>@Localizer["TodaySale"]</div>
+                        <div>
+                            <strong>
+                                0.00
+                            </strong>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-12" style="margin-bottom:3px;">
+                <div class="stat_box">
+                    <span class="glyphicon glyphicon-list stat_icon" style="background: #00ACED;"></span>
+                    <span>
+                        <div>@Localizer["PendingSale"]</div>
+                        <div><strong>0.00</strong></div>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-12" style="margin-bottom:3px;">
+                <div class="stat_box">
+                    <span class="glyphicon glyphicon-user stat_icon" style="background: #D3272C;"></span><span>
+                        <div>@Localizer["TotalCustomers"]</div>
+                        <div>
+                            <strong>
+                                1
+                            </strong>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-12" style="margin-bottom:3px;">
+                <div class="stat_box">
+                    <span class="glyphicon glyphicon-share-alt stat_icon" style="background: #57BA63;"></span><span>
+                        <div>@Localizer["TotalSuppliers"]</div>
+                        <div>
+                            <strong>
+                                1
+                            </strong>
+                        </div>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-12" style="margin-bottom:3px;">
+                <div class="stat_box">
+                    <span class="glyphicon glyphicon-list stat_icon" style="background: #00ACED;"></span>
+                    <span>
+                        <div>@Localizer["TotalItems"]</div>
+                        <div><strong>2</strong></div>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*<script type="text/javascript">
+
+    var HelloWorldComponent = React.Component({
+        getInitialState: function () {
+            console.log("fdsfds")
+            return {
+                serverMessage: ''
+            };
+        },
+        componentDidMount: function () {
+            //fetch data from server
+            $.get('/Home/getmessage', function (result) {
+                if (this.isMounted) {
+                    this.setState({
+                        serverMessage: result
+                    })
+                }
+            }.bind(this));
+        },
+        Render: function () {
+            return ("<h1>{this.state.serverMessage}</h1>")
+        }
+    });
+
+    React.createElement(
+        "<HelloWorldComponent />", document.getElementById("helloworldcontainer"));
+</script>*@

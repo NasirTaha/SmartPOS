@@ -1,0 +1,386 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@* The IViewLocalizer can be injected into the view. It does two things of interest:
+    1. It can HTML encode *parameters* passed to resource strings (not the resource strings themselves, as they may contain
+       HTML) automatically, and return the result as an IHtmlContent so Razor won't HTML encode it again;
+    2. It looks for localization resources for this view based on the view path, e.g. if the view's path is
+       "MyApplication/Views/Home/Index.cshtml", then the corresponding resource base path will be "MyApplication.Views.Home.Index" *@
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = "Index";
+}
+@model IEnumerable<WebUI. Models.Item>
+@*<h2>Index</h2>*@
+
+<script src="~/lib/Microsoft.jQuery.Unobtrusive.Ajax/jquery.unobtrusive-ajax.js"></script>
+<script src="~/js/plugin/jqgrid/jquery.jqGrid.min.js"></script>
+<script src="~/js/plugin/jqgrid/grid.locale-en.min.js"></script>
+@*<script src="~/Appjs/script.js"></script>*@
+<!-- NEW WIDGET START -->
+@*<button type="button" id="load-partial" class="btn btn-primary">إضافة</button>*@
+
+<br />
+<article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div id="MainGrid">
+        <button onclick="PrintPartOfPage('MainGrid')">print</button>
+        <table id="jqGrid"></table>
+        <div id="jqControls"></div>
+    </div>
+  
+   
+</article>
+
+<div class="modal fade in" id="myModal" tabindex="-1" role="dialog" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">  @Localizer["Items"]</h4>
+            </div>
+            
+
+            <form asp-controller="Items" asp-action="AddAsync"
+                  data-ajax-begin="onBegin" data-ajax-complete="onComplete"
+                  data-ajax-failure="onFailed" data-ajax-success="onSuccess"
+                  data-ajax="true" data-ajax-method="POST" >
+                <div class="modal-body" id="bodyPrint">
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <input type="hidden" name="id" id="id" class="input-sm">
+                            <input type="hidden" name="CategoryId" id="CategoryId" class="input-sm">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="code" name="Code" placeholder= @Localizer["Code"] required="">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="Name" id="name" placeholder=@Localizer["NameAR"] required="">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="EnglishName" id="englishName" placeholder=@Localizer["NameEN"] required="">
+                            </div>
+
+                            @*<div class="form-group">
+                            <textarea class="form-control" placeholder="Content" rows="5" required=""></textarea>
+                        </div>*@
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="category"> @Localizer["Category"]</label>
+                                <label class="select">
+                                    <i></i>
+                                    @Html.DropDownList("CategoryID", new SelectList(ViewBag.CategoryID, "Id", "Category"), "--Select--", new { @id = "CategoryID" })
+
+                                </label>
+                                @*<select class="form-control" id="category">
+                                <option>Articles</option>
+                                <option>Tutorials</option>
+                                <option>Freebies</option>
+                            </select>*@
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="tags"> @Localizer["Color"]</label>
+                                <input type="text" class="form-control" name="color" id="color" placeholder="اللون">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="ImagePath" id="imagePath" placeholder=@Localizer["Image"]>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @*<label for="tags"> ضرائب</label>*@
+                                <input type="text" class="form-control" name="SalePrice" id="salePrice" placeholder=@Localizer["VAT"]>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        @Localizer["Close"]
+                    </button>
+                    @*<button type="button" class="btn btn-primary">
+                        حفظ
+                    </button>*@
+                    <button type="submit" class="btn btn-primary">
+                        @Localizer["save"]
+                    </button>
+
+                </div>
+            </form>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+@*/////////////*@
+
+
+<script>
+    function PrintPartOfPage(dvprintid) {
+        var prtContent = document.getElementById(dvprintid);
+        var WinPrint = window.open('', '', 'letf=100,top=100,width=600,height=600');
+        WinPrint.document.write(prtContent.innerHTML);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        //WinPrint.close()   
+    }
+    function ClearForm()
+    {
+        $("#name").val('');
+        $("#id").val('');
+        $("#CategoryID").val('');
+        $("#CategoryId").val('');
+        //$("#CategoryId").get(0).selectedIndex = 1;
+        $("#salePrice").val('');
+        $("#englishName").val('');
+        $("#color").val('');
+        $("#imagePath").val('');
+        $("#code").val('');
+        $("#taxable").val('');
+
+    }
+    function showModal()
+    {
+        console.log('click');
+        ClearForm();
+
+        $('#myModal').modal('show');
+
+     }
+    function showUpdateModal() {
+        console.log('click');
+        var rowId = $("#jqGrid").jqGrid('getGridParam', 'selrow');
+        var rowData = jQuery("#jqGrid").getRowData(rowId);
+        var colData = rowData['id'];   // perticuler Column name of jqgrid that you want to access
+        console.log('click' + colData);
+        UpdateItem(colData);
+    }
+    function showDeleteModal() {
+        console.log('click');
+        var rowId = $("#jqGrid").jqGrid('getGridParam', 'selrow');
+        var rowData = jQuery("#jqGrid").getRowData(rowId);
+        var colData = rowData['id'];   // perticuler Column name of jqgrid that you want to access
+        console.log('click' + colData);
+        DeleteItem(colData);
+    }
+    $("#load-partial").on('click', function () {
+        console.log('click');
+        ClearForm();
+        // var role = $('#events').val();
+        //  $('#UserRoles').val(role);
+        $('#myModal').modal('show');
+        ////setup modal
+        //$('#UserModal').modal({
+        //    keyboard: false,
+        //    remote: '_NewUserRegister'
+        //}).show();
+    });
+
+  function  ReloadGrid()
+  {
+      jQuery("#jqGrid").trigger("reloadGrid");
+    }
+
+    $('#myModal').on('showen.bs.modal', function (e) {
+        console.log('shown');
+    });
+
+
+
+</script>
+
+
+
+<script>
+    // var results = $("#Results");
+    var onBegin = function () {
+
+    };
+    var onComplete = function () {
+        // alert('onComplete');
+        //   results.html("");
+    };
+
+    var onSuccess = function (context) {
+        //alert(context);
+      //  alert("تم الحفظ ");
+        SuccessMessage();
+        ReloadGrid();
+       
+        $('#myModal').modal('hide');
+    };
+
+    var onFailed = function (context) {
+        console.log('context: ', context);
+        FailMessage();
+      //  alert("عذراً ,,, يوجد خطأ");
+        //swal({
+        //    title: "عذراً ,,, يوجد خطأ",
+        //    text: ''
+        //});
+    };
+
+    ////////////
+   
+   
+    ///////////////////////////////
+    function UpdateItem(id) {
+
+        //  alert("ID " + id + " ");
+        //  var url = "/YourController/YourActionResult";
+
+        $.ajax({
+            method: 'GET',
+            url: '@Url.Action("getItem", "Items")',
+                data: {
+                    'id': id
+
+                },
+
+                }).done(function (data, statusText, xhdr) {
+                    $("#myModal").modal(data);
+                    $("#name").val(data.name);
+                    $("#id").val(data.id);
+                    $("#CategoryID").val(data.categoryId);
+                    $("#CategoryId").val(data.categoryId);
+                    //$("#CategoryId").get(0).selectedIndex = 1;
+                    $("#salePrice").val(data.salePrice);
+                    $("#englishName").val(data.englishName);
+                    $("#color").val(data.color);
+                    $("#imagePath").val(data.imagePath);
+                    $("#code").val(data.code);
+                    $("#taxable").val(data.taxable);
+                    $('#myModal').modal('show');
+                   // alert("Done");
+                    console.log(data);
+                    //swal({
+                    //    title: "الإضافة",
+                    //    text: "تم الإضافة",
+                    //});
+                  //  document.getElementById(id).disabled = true;
+                   // $('#'.concat(id)).prop('disabled', true);
+                   // getview();
+                }).fail(function (xhdr, statusText, errorText) {
+                    //swal({
+                    //    title: "عذرا",
+                    //    text: "يوجد خطأ",
+                    //});
+                    alert("Fail" + errorText);
+                  //  $("#partial").text(JSON.stringify(xhdr));
+              });
+
+    }
+     function DeleteItem(id) {
+
+         DeleteConfirm(id);
+
+       
+    }
+     function DeleteConfirm (id) {
+         $.SmartMessageBox({
+             title: "طلب تاكيد",
+             content: "سيتم حذف الصنف الرجاء الضغط علي موافق للاستمرار",
+             buttons: '[إلغاء][موافق]'
+         },
+             function (ButtonPressed) {
+
+                 if (ButtonPressed === "موافق")
+                 {
+
+                 $.ajax({
+                     method: 'GET',
+                     url: '@Url.Action("Deletesync", "Items")',
+                     data: {
+                         'id': id
+
+                     },
+
+                 }).done(function (data, statusText, xhdr) {
+                     SuccessMessage();
+                     console.log(data);
+                     ReloadGrid();
+
+                 }).fail(function (xhdr, statusText, errorText) {
+                     FailMessage();
+                     // alert("Fail" + errorText);
+
+                 });
+
+                 //SuccessMessage();
+                 //$.smallBox({
+                 //    title: "Callback function",
+                 //    content: "<i class='fa fa-clock-o'></i> <i>تم تاكيد الحذف...</i>",
+                 //    color: "#659265",
+                 //    iconSmall: "fa fa-check fa-2x fadeInRight animated",
+                 //    timeout: 4000
+                 //});
+             }
+             if (ButtonPressed === "إلغاء") {
+                 FailMessage();
+                 //$.smallBox({
+                 //    title: "Callback function",
+                 //    content: "<i class='fa fa-clock-o'></i> <i>إلغاء الامر...</i>",
+                 //    color: "#C46A69",
+                 //    iconSmall: "fa fa-times fa-2x fadeInRight animated",
+                 //    timeout: 4000
+                 //});
+             }
+
+         });
+
+     }
+
+     function SuccessMessage() {
+         $.bigBox({
+             title: "<br/>نجاح العملية",
+             content: "  <br/>تم حفظ البيانات بنجاح",
+             color: "#739E73",
+             timeout: 8000,
+             icon: "fa fa-check",
+             number: "1"
+         }, function () {
+             closedthis();
+         });
+
+         //e.preventDefault();
+
+
+
+     }
+
+     function FailMessage() {
+         $.bigBox({
+             title: "<br/> فشل العملية",
+             content: "فشل العملية الرجاء التحقق من المدخلات",
+             color: "#C46A69",
+             //timeout: 6000,
+             icon: "fa fa-warning shake animated",
+             number: "1",
+             timeout: 6000
+         });
+
+        // e.preventDefault();
+
+
+
+
+     }
+
+     //$(document).ready(function () {
+     //    $('#dt_basic').dataTable({
+     //        "language": {
+     //            "url": "~/Translate/DataTable/Arabic.json"
+     //        }
+     //    });
+     //});
+</script>

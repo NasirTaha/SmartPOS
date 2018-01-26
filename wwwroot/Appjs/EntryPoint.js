@@ -1,0 +1,3 @@
+﻿import './SaleInvoice';
+
+import './PurchaseInvoice';

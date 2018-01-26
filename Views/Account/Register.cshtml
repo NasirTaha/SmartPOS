@@ -1,0 +1,334 @@
+@using SmartAdmin.Seed.Models.AccountViewModels
+@model RegisterViewModel
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-7 hidden-xs hidden-sm">
+        <h1 class="txt-color-red login-header-big">سمارت</h1>
+        <div class="hero">
+
+            <div class="pull-left login-desc-box-l">
+                <h4 class="paragraph-header">الحل الأمثل والمتكامل لنظام المنبيعات ونقاط البيع</h4>
+                <div class="login-app-icons">
+                    <a href="javascript:void(0);" class="btn btn-danger btn-sm">تعرف علي مميزات نظام اسمارت</a>
+                    <a href="javascript:void(0);" class="btn btn-danger btn-sm">مشاهدة الفيديو التعريفي</a>
+                </div>
+            </div>
+
+            <img src="~/img/demo/iphoneview.png" alt="" class="pull-right display-image" style="width: 210px">
+
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <h5 class="about-heading">تعرف علي فريق اسمارت </h5>
+                <p>
+                    قام بتطوير سمارت مجموعة من
+                </p>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <h5 class="about-heading">هل سمارت الحل المناسب ؟</h5>
+                <p>
+                    من خلال هذا ال..... يمكنك
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-5">
+        <div class="well no-padding">
+
+            <form asp-controller="Account" asp-action="Register" id="smart-form-register" class="smart-form client-form">
+                <header>
+                   التسجيل 
+                </header>
+                <fieldset>
+                    <section>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    </section>
+                    <section>
+                        <label class="input">
+                            <i class="icon-append fa fa-user"></i>
+                            <input type="text" name="username" placeholder="اسم المستخدم">
+                            <b class="tooltip tooltip-bottom-right">هذا الحقل ضروري لتتمكن من الدخول الي نظام اسمارت</b>
+                        </label>
+                    </section>
+
+                    <section>
+                        <label class="input">
+                            <i class="icon-append fa fa-envelope"></i>
+                            <input type="email" name="email" placeholder="البريد الإلكتروني">
+                            <b class="tooltip tooltip-bottom-right">النظام يحتاج البريد الإلكتروني لتأكيد حسابك</b>
+                        </label>
+                    </section>
+
+                    <section>
+                        <label class="input">
+                            <i class="icon-append fa fa-lock"></i>
+                            <input type="password" name="password" placeholder="كلمة المرور" id="password">
+                            <b class="tooltip tooltip-bottom-right">حاول استخدام كلمة مرور سهلة التذكر</b>
+                        </label>
+                    </section>
+
+                    <section>
+                        <label class="input">
+                            <i class="icon-append fa fa-lock"></i>
+                            <input type="password" name="confirmpassword" placeholder="تأكيد كلمة المرور">
+                            <b class="tooltip tooltip-bottom-right">حاول استخدام كلمة مرور سهلة التذكر</b>
+                        </label>
+                    </section>
+                </fieldset>
+
+                <fieldset>
+                    <div class="row">
+                        <section class="col col-6">
+                            <label class="input">
+                                <input type="text" name="firstname" placeholder="الإسم">
+                            </label>
+                        </section>
+                        <section class="col col-6">
+                            <label class="input">
+                                <input type="text" name="lastname" placeholder="إسم العائلة">
+                            </label>
+                        </section>
+                    </div>
+
+                    <div class="row">
+                        <section class="col col-6">
+                            <label class="select">
+                                <select name="gender"  >
+
+                                    <option value="0" selected disabled>النوع</option>
+                                    <option value="1">ذكر</option>
+                                    <option value="2">أنثي</option>
+                                    <option value="3">الإستمرار بدون تحديد</option>
+                                </select> <i style="display:none;"></i>
+                            </label>
+                        </section>
+                        <section class="col col-6" style="display:none;">
+                            <label class="input">
+                                <i class="icon-append fa fa-calendar"></i>
+                                <input type="text" name="request" placeholder="Request activation on" class="datepicker" data-dateformat="dd/mm/yy">
+                            </label>
+                        </section>
+                    </div>
+
+                    <section>
+                        <label class="checkbox">
+                            <input type="checkbox" name="subscription" id="subscription">
+                            <i></i>أفضل أن استقبل رسائل العروض والأخبار من فريق سمارت  
+                        </label>
+                        <label class="checkbox">
+                            <input type="checkbox" name="terms" id="terms">
+                            <i></i>أوافق علي  <a href="#" data-toggle="modal" data-target="#myModal"> شروط الإستخدام </a>
+                        </label>
+                    </section>
+                </fieldset>
+                <footer>
+                    <button type="submit" class="btn btn-primary">
+                        التسجيل في نظام سمارت
+                    </button>
+                </footer>
+
+                <div class="message">
+                    <i class="fa fa-check"></i>
+                    <p>
+                        شكرا للتسجيل في نظام سمارت
+                    </p>
+                </div>
+            </form>
+
+        </div>
+        <div style="display:none;">
+            <p class="note text-center">*FREE Registration ends on @DateTime.Now.ToString("MMMM") @DateTime.Now.Year.</p>
+            <h5 class="text-center">- Or sign in using -</h5>
+            <ul class="list-inline text-center">
+                <li>
+                    <a href="javascript:void(0);" class="btn btn-primary btn-circle">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="btn btn-info btn-circle">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="btn btn-warning btn-circle">
+                        <i class="fa fa-linkedin"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Terms & Conditions</h4>
+            </div>
+            <div class="modal-body custom-scroll terms-body">
+
+                <div id="left">
+
+
+                    <h1>شروط استخدام نظام سمارت</h1>
+
+
+                    <h2>الأساسيات</h2>
+
+                    <p>(1)</p>
+
+                    <p>(2)</p>
+
+
+                    <h2>الرخصة</h2>
+                    <p>(3)</p>
+
+                    <p>(4)</p>
+
+                    <p>يجب أن لا تقوم بالتالي</p>
+                    <ul>
+                        <li>(أ)</li>
+                        <li>(ب)</li>
+                        <li>(ج)</li>
+                        
+                    </ul>
+                  
+
+
+                </div>
+
+                <br><br>
+
+                <p>
+                    <strong>
+                        والله علي ذلك شهيد
+                    </strong>
+                </p>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="i-agree">
+                    <i class="fa fa-check"></i> موافق
+                </button>
+                <button type="button" class="btn btn-danger " id="print">
+                    <i class="fa fa-print"></i> طباعة شروط الإستخدام
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">
+                    الغاء
+                </button>
+
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script type="text/javascript">
+        runAllForms();
+
+        // Model i agree button
+        $("#i-agree").click(function () {
+            var $this = $("#terms");
+            if ($this.checked) {
+                $('#myModal').modal('toggle');
+            } else {
+                $this.prop('checked', true);
+                $('#myModal').modal('toggle');
+            }
+        });
+
+        // Validation
+        $(function () {
+            // Validation
+            $("#smart-form-register").validate({
+
+                // Rules for form validation
+                rules: {
+                    username: {
+                        required: true
+                    },
+                    email: {
+                        required: true,
+                        email: true
+                    },
+                    password: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 20
+                    },
+                    confirmpassword: {
+                        required: true,
+                        minlength: 3,
+                        maxlength: 20,
+                        equalTo: '#password'
+                    },
+                    firstname: {
+                        required: false
+                    },
+                    lastname: {
+                        required: false
+                    },
+                    gender: {
+                        required: false
+                    },
+                    terms: {
+                        required: true
+                    }
+                },
+
+                // Messages for form validation
+                messages: {
+                    login: {
+                        required: 'Please enter your login'
+                    },
+                    email: {
+                        required: 'Please enter your email address',
+                        email: 'Please enter a VALID email address'
+                    },
+                    password: {
+                        required: 'Please enter your password'
+                    },
+                    confirmpassword: {
+                        required: 'Please enter your password one more time',
+                        equalTo: 'Please enter the same password as above'
+                    },
+                    firstname: {
+                        required: 'Please select your first name'
+                    },
+                    lastname: {
+                        required: 'Please select your last name'
+                    },
+                    gender: {
+                        required: 'Please select your gender'
+                    },
+                    terms: {
+                        required: 'You must agree with Terms and Conditions'
+                    }
+                },
+
+                // Ajax form submition
+                submitHandler: function (form) {
+                    $(form).ajaxSubmit({
+                        success: function () {
+                            $("#smart-form-register").addClass('submited');
+                        }
+                    });
+                },
+
+                // Do not change code below
+                errorPlacement: function (error, element) {
+                    error.insertAfter(element.parent());
+                }
+            });
+
+        });
+    </script>
+}

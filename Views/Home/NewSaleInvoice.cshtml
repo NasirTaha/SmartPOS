@@ -1,0 +1,250 @@
+﻿
+@{
+    ViewData["Title"] = "NewSaleInvoice";
+}
+
+                         
+
+<link href="~/css/invoice.css" rel="stylesheet" type="text/css" media="screen"/>
+<style class="cp-pen-styles">body {
+  background-color: #eee;
+}
+
+.cardHolder {
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.carsdd {
+  flex: 1;
+  margin: .5em;
+  height: 100px;
+  min-width: 100px;
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: all .25s ease;
+  animation: populate .5s ease-out normal backwards;
+}
+.card {
+  border:1px groove;
+  width: 70px;
+  margin:10px;
+}
+
+
+</style>
+<div >
+
+    <!-- widget grid -->
+    <section id="widget-grid" class="">
+        
+        <!-- row -->
+        <div class="row">
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <table >
+                    <tr>
+                        <th colspan="2">المجموعات</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="~/img/superbox/superbox-thumb-1.jpg" class="card"/>
+                        </td>
+                        <td>
+                            <img src="~/img/superbox/superbox-thumb-2.jpg" class="card"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="~/img/superbox/superbox-thumb-3.jpg" class="card" />
+                        </td>
+                        <td>
+                            <img src="~/img/superbox/superbox-thumb-4.jpg" class="card" />
+                        </td>
+                    </tr>
+                   
+                </table>
+
+                </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <table style="border-left:1px groove green;">
+                    
+                    <tr>
+                        <th colspan="4">الأصناف</th>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="~/img/superbox/superbox-thumb-7.jpg" class="card" />
+                        </td>
+                        <td>
+                            <img src="~/img/superbox/superbox-thumb-8.jpg" class="card" />
+                        </td>
+                        <td>
+                            <img src="~/img/superbox/superbox-thumb-9.jpg" class="card" />
+                        </td>
+                        <td>
+                            <img src="~/img/superbox/superbox-thumb-10.jpg" class="card" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="~/img/superbox/superbox-thumb-11.jpg" class="card" />
+                        </td>
+                        <td>
+                            <img src="~/img/superbox/superbox-thumb-12.jpg" class="card" />
+                        </td>
+                        <td>
+                            <img src="~/img/superbox/superbox-thumb-13.jpg" class="card" />
+                        </td>
+                        <td>
+                            <img src="~/img/superbox/superbox-thumb-14.jpg" class="card" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <img src="~/img/superbox/superbox-thumb-15.jpg" class="card" />
+                        </td>
+                        <td>
+                            <img src="~/img/superbox/superbox-thumb-16.jpg" class="card" />
+                        </td>
+                        <td>
+                            <img src="~/img/superbox/superbox-thumb-17.jpg" class="card" />
+                        </td>
+                        <td>
+                            <img src="~/img/superbox/superbox-thumb-18.jpg" class="card" />
+                        </td>
+                    </tr>
+                </table>
+               
+            </div>
+                <!-- NEW WIDGET START -->
+                <article class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+                    <!-- Widget ID (each widget will need unique ID)-->
+                    <div class="jarviswidget well jarviswidget-color-darken" id="wid-id-0" data-widget-sortable="false" data-widget-deletebutton="false" data-widget-editbutton="false" data-widget-colorbutton="false">
+                        <!-- widget options:
+                usage: <div class="jarviswidget" id="wid-id-0" data-widget-editbutton="false">
+
+                data-widget-colorbutton="false"
+                data-widget-editbutton="false"
+                data-widget-togglebutton="false"
+                data-widget-deletebutton="false"
+                data-widget-fullscreenbutton="false"
+                data-widget-custombutton="false"
+                data-widget-collapsed="true"
+                data-widget-sortable="false"
+
+                -->
+                        <header>
+                            <span class="widget-icon"> <i class="fa fa-barcode">jarviswidget</i> </span>
+                            <h2>Item #44761 </h2>
+
+                        </header>
+
+                        <!-- widget div-->
+                        <div>
+
+                            <!-- widget edit box -->
+                            <div class="jarviswidget-editbox">
+                                <!-- This area used as dropdown edit box -->
+
+                            </div>
+                            <!-- end widget edit box -->
+                            <!-- widget content -->
+                            <div id="testReact">
+
+                            </div>
+                            
+                                    <div class="pull-left" style="display:none;">
+                                        <address >
+                                            <br>
+                                            <strong>SmartAdmin, Inc.</strong>
+                                            <br>
+                                            231 Ajax Rd,
+                                            <br>
+                                            Detroit MI - 48212, USA
+                                            <br>
+                                            <abbr title="Phone">P:</abbr> (123) 456-7890
+                                        </address>
+                                    </div>
+                                    <div class="pull-right" style="display:none;">
+                                        <h1 class="font-400">invoice</h1>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <br>
+                                    <div class="row" style="display:none;">
+                                        <div class="col-sm-9">
+                                            <h4 class="semi-bold">Rogers, Inc.</h4>
+                                            <address>
+                                                <strong>Mr. Simon Hedger</strong>
+                                                <br>
+                                                342 Mirlington Road,
+                                                <br>
+                                                Calfornia, CA 431464
+                                                <br>
+                                                <abbr title="Phone">P:</abbr> (467) 143-4317
+                                            </address>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div>
+                                                <div>
+                                                    <strong>INVOICE NO :</strong>
+                                                    <span class="pull-right"> #AA-454-4113-00 </span>
+                                                </div>
+
+                                            </div>
+                                            <div>
+                                                <div class="font-md">
+                                                    <strong>INVOICE DATE :</strong>
+                                                    <span class="pull-right"> <i class="fa fa-calendar"></i> 15/02/13 </span>
+                                                </div>
+
+                                            </div>
+                                            <br>
+                                            <div class="well well-sm  bg-color-darken txt-color-white no-border">
+                                                <div class="fa-lg">
+                                                    Total Due :
+                                                    <span class="pull-right"> 4,972 USD** </span>
+                                                </div>
+
+                                            </div>
+                                            <br>
+                                            <br>
+                                        </div>
+                                    </div>
+                                   
+
+                                    
+                            <!-- end widget content -->
+
+                        </div>
+                        <!-- end widget div -->
+
+                    </div>
+                    <!-- end widget -->
+
+                </article>
+                <!-- WIDGET END -->
+
+</div>
+
+        <!-- end row -->
+
+    </section>
+    <!-- end widget grid -->
+
+</div>
+<!-- END MAIN CONTENT -->
+
+
+
+<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+<script src="@Url.Content("~/Appjs/dist/SaleInvoice.js")"></script>
+
+@section Scripts {
+    <script>
+        $(function () {
+        });
+    </script>
+}

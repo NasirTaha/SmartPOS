@@ -1,0 +1,26 @@
+﻿
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@model WebUI.Models.Item
+<form asp-controller="Admin" asp-action="_NewUserRegister" id="fm_NewUserRegister"
+      data-ajax-failure="onFailed" data-ajax-success="onSuccess"
+      data-ajax="true" data-ajax-method="POST">
+    
+    @Html.TextBoxFor(m => m.Name)
+
+    <input type="submit" value="Submit" />
+</form>
+
+<script>
+    function OnSuccess(response) {
+        //var message = "Person Id: " + response.id;
+        //message += "\nName: " + response.Name;
+        //message += "\nGender: " + response.Gender;
+        //message += "\nCity: " + response.City;
+        alert("OnSuccess");
+    }
+    function OnFailure(response) {
+        alert("Error occured.");
+    }
+</script>

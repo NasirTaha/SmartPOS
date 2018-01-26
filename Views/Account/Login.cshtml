@@ -1,0 +1,171 @@
+﻿@using SmartAdmin.Seed.Configuration
+@using SmartAdmin.Seed.Models
+@using SmartAdmin.Seed.Models.AccountViewModels
+@model LoginViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-7 col-lg-8 hidden-xs hidden-sm">
+        <h1 class="txt-color-red login-header-big">سمارت</h1>
+        <div class="hero">
+
+            <div class="pull-left login-desc-box-l">
+                <h4 class="paragraph-header">الحل الأمثل والمتكامل لنظام المنبيعات ونقاط البيع</h4>
+                <div class="login-app-icons">
+                    <a href="javascript:void(0);" class="btn btn-danger btn-sm">تعرف علي مميزات نظام اسمارت</a>
+                    <a href="javascript:void(0);" class="btn btn-danger btn-sm">مشاهدة الفيديو التعريفي</a>
+                </div>
+            </div>
+
+            <img src="~/img/demo/iphoneview.png" class="pull-right display-image" alt="" style="width:350px">
+
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <h5 class="about-heading">تعرف علي فريق اسمارت </h5>
+                <p>
+                    قام بتطوير سمارت مجموعة من 
+                </p>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                <h5 class="about-heading">هل سمارت الحل المناسب ؟</h5>
+                <p>
+                    من خلال هذا ال..... يمكنك 
+                </p>
+            </div>
+        </div>
+
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+        <div class="well no-padding">
+            <form asp-controller="Account" asp-action="Login" id="login-form" class="smart-form client-form">
+                <header>
+                    تسجيل الدخول
+                </header>
+
+                <fieldset>
+                    <section>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                    </section>
+                    <section>
+                        <label class="label">البريد الإلكتروني</label>
+                        <label class="input">
+                            <i class="icon-append fa fa-user"></i>
+                            <input type="email" name="email" value="">
+                            <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> البريد الإلكتروني أو اسم المستخدم</b>
+                        </label>
+                    </section>
+
+                    <section>
+                        <label class="label">كلمة المرور</label>
+                        <label class="input">
+                            <i class="icon-append fa fa-lock"></i>
+                            <input type="password" name="password" value="">
+                            <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> كلمة المرور</b>
+                        </label>
+                        <div class="note">
+                            <a asp-controller="Account" asp-action="ForgotPassword">نسيت كلمة المرور؟</a>
+                        </div>
+                    </section>
+
+                    <section>
+                        <label class="checkbox">
+                            <input type="checkbox" name="remember" checked="">
+                            <i></i>الإحتفاظ ببيانات الدخول
+                        </label>
+                    </section>
+                </fieldset>
+                <footer>
+                    <button type="submit" class="btn btn-primary">
+                        دخول لنظام اسمارت
+                    </button>
+                </footer>
+            </form>
+
+        </div>
+        <div style="display:none;">
+            <h5 class="text-center"> - Or sign in using -</h5>
+
+            <ul class="list-inline text-center">
+                <li>
+                    <a href="javascript:void(0);" class="btn btn-primary btn-circle"><i class="fa fa-facebook"></i></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="btn btn-info btn-circle"><i class="fa fa-twitter"></i></a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="btn btn-warning btn-circle"><i class="fa fa-linkedin"></i></a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/modernizer/modernizr.js"></script>
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script type="text/javascript">
+        runAllForms();
+
+        $(function() {
+            // Validation
+            $("#login-form").validate({
+              
+                
+                // Rules for form validation
+                rules : {
+                    email : {
+                        required : true,
+                        email : true
+                    },
+                    password : {
+                        required : true,
+                        minlength : 3,
+                        maxlength : 20
+                    }
+                },
+
+                // Messages for form validation
+                messages : {
+                    email : {
+                        required : 'Please enter your email address',
+                        email : 'Please enter a VALID email address'
+                    },
+                    password : {
+                        required : 'Please enter your password'
+                    }
+                },
+
+                // Do not change code below
+                errorPlacement : function(error, element) {
+                    error.insertAfter(element.parent());
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+           
+        
+            if (Modernizr.localstorage) {
+                var localData = window.localStorage;
+                var _userSetting = localData.getItem("UserSetting");
+                if (_userSetting == null) {
+                    console.log("Is NUll");
+
+                    var UserSetting = {
+                        "Languages": 'en-US',
+                        "UIClass": 'smart-style-6',
+
+                    };
+                  //  var localUserSetting = window.localStorage;
+                    var UserSettingObj = JSON.stringify(UserSetting);
+                    localData.setItem("UserSetting", UserSettingObj);
+                    //window.location.href("Orders.html");
+                    console.log(UserSettingObj);
+                }
+        }
+        });
+    </script>
+}
